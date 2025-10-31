@@ -14,7 +14,6 @@ const config = ({
   reporter: [
     ['html'],
     ['json', { outputFile: 'test-results/results.json' }],
-    // ['junit', { outputFile: 'results.xml' }],
     ['allure-playwright']
   ],
   use: {
