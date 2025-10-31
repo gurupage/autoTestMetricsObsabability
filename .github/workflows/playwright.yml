@@ -40,5 +40,5 @@ jobs:
         path: |
           playwright-report
           allure-report
-          results.xml
+          test-results/results.json
         retention-days: 30
