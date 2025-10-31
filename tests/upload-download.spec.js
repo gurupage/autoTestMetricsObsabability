@@ -24,7 +24,7 @@ async function readExcel(worksheet, searchText) {
     return output;
 }
 
-test.only('Upload download excel validation', async ({ page }, testInfo) => {
+test('Upload download excel validation', async ({ page }, testInfo) => {
     const textSearch = 'Mango';
     const updateValue = '350';
 
