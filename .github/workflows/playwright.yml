@@ -26,6 +26,12 @@ jobs:
       run: npx playwright test
       continue-on-error: true # ← upload report even if error
 
+    - name: Collect Playwright Metrics
+      if: always()
+      run: |
+        node utils/CollectPlaywrightMetrics.js test-results/results.json
+        cat test-results/metrics.prom
+
     - name: Generate Allure
       if: always()
       run: |
@@ -41,4 +47,5 @@ jobs:
           playwright-report
           allure-report
           test-results/results.json
+          test-results/metrics.prom
         retention-days: 30
