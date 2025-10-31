@@ -12,7 +12,7 @@ const config = ({
     timeout: 5 * 1000
   },
   reporter: [
-    // ['html'],
+    ['html'],
     // ['json', { outputFile: 'test-results/results.json' }],
     ['junit', { outputFile: 'results.xml' }],
     ['allure-playwright']
