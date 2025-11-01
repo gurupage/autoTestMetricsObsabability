@@ -4,6 +4,10 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  schedule:
+      # 毎日9:00 JSTに回したい場合 → UTCでは0:00
+      - cron: '*/10 * * * *'  # 10分ごと
+  workflow_dispatch: # ← 手動実行もできるようにしておくと便利
 
 jobs:
   test:
