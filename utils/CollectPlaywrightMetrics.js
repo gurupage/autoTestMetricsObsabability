@@ -50,7 +50,7 @@ const lines = [
 ];
 
 // Linuxで読まれることを前提に、明示的に \n で join
-const content = lines.join('\n');
+const content = lines.join('\n') + '\n';
 
 // 出力先は CI のアーティファクト側でもいいし、最終的に bind mount する場所でもいい
 const outPath = path.resolve('test-results', 'metrics.prom');
