@@ -12,7 +12,7 @@ let expected = 0;
 let unexpected = 0;
 let flaky = 0;
 let skipped = 0;
-let retries = 0;
+// let retries = 0; ← もう要らないなら消してOK
 let totalDurationMs = 0;
 
 // テストごとのメトリクス行を貯める
@@ -60,8 +60,10 @@ for (const suite of data.suites || []) {
       let errorReason = 'none';
 
       if (Array.isArray(test.results)) {
+        // per-test でだけ retry を数える
+        let testRetries = 0;
         if (test.results.length > 1) {
-          testRetries = test.results.length - 1;
+          testRetries = test.results.length - 1;  // duration 用に保持するだけ
         }
         for (const r of test.results) {
           if (typeof r.duration === 'number') {
@@ -125,9 +127,9 @@ const lines = [
   '# HELP playwright_tests_skipped Playwright tests with outcome=skipped',
   '# TYPE playwright_tests_skipped gauge',
   `playwright_tests_skipped ${skipped}`,
-  '# HELP playwright_tests_retries Retries in Playwright tests',
-  '# TYPE playwright_tests_retries gauge',
-  `playwright_tests_retries ${retries}`,
+  // '# HELP playwright_tests_retries Retries in Playwright tests',
+  // '# TYPE playwright_tests_retries gauge',
+  // `playwright_tests_retries ${retries}`,
   '# HELP playwright_tests_duration_seconds Total duration of all Playwright test runs (including retries)',
   '# TYPE playwright_tests_duration_seconds gauge',
   `playwright_tests_duration_seconds ${totalDurationSec}`,
@@ -136,8 +138,8 @@ const lines = [
   '# TYPE playwright_test_run_status gauge',
   '# HELP playwright_test_run_flaky Whether this test was flaky (1) in this run',
   '# TYPE playwright_test_run_flaky gauge',
-  '# HELP playwright_test_run_retries Retries used by this test in this run',
-  '# TYPE playwright_test_run_retries gauge',
+  // '# HELP playwright_test_run_retries Retries used by this test in this run',
+  // '# TYPE playwright_test_run_retries gauge',
   '# HELP playwright_test_run_duration_seconds Duration of this test in seconds (sum of retries)',
   '# TYPE playwright_test_run_duration_seconds gauge',
   ...perTestLines,
