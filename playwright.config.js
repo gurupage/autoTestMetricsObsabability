@@ -18,7 +18,7 @@ const config = ({
   ],
   use: {
     browserName: 'chromium', //chromium
-    headless: true,
+    headless: false,
     screenshot: 'only-on-failure',
     trace: 'on-first-retry', //off, on
     // ...devices['iPhone 15'],
