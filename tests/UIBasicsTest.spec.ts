@@ -1,9 +1,9 @@
-import {expect, test} from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { request } from 'http';
 // const {test} = require('@playwright/test');
 
-test.describe.configure({mode:'parallel'});
-test('First Playwright Test', async ({browser})=> {
+test.describe.configure({ mode: 'parallel' });
+test('First Playwright Test', async ({ browser }) => {
 
     const context = await browser.newContext();
     const page = await context.newPage();
@@ -12,11 +12,11 @@ test('First Playwright Test', async ({browser})=> {
     const cardTitles = page.locator(".card-body a");
 
     //Section 11 API route
-    page.on('request', request=> console.log(request.url()));
-    page.on('response', response=> console.log(response.url(), response.status()));
+    page.on('request', request => console.log(request.url()));
+    page.on('response', response => console.log(response.url(), response.status()));
     //Section 11 API route
 
-    await page.goto("https://rahulshettyacademy.com/loginpagePractise/"); 
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
     await expect(page).toHaveTitle("LoginPage Practise | Rahul Shetty Academy");
     await userName.fill("email");
@@ -33,7 +33,7 @@ test('First Playwright Test', async ({browser})=> {
     console.log(allCardTitles);
 });
 
-test('Client App Login', async ({browser})=> {
+test('Client App Login', async ({ browser }) => {
 
     const context = await browser.newContext();
     const page = await context.newPage();
@@ -42,12 +42,12 @@ test('Client App Login', async ({browser})=> {
     const cardTitles = page.locator(".card-body b");
     const products = page.locator(".card-body");
     const productName = "ZARA COAT 3";
-    const email = "shohei@example.com";
-    await page.goto("https://rahulshettyacademy.com/client/#/auth/login"); 
+    const email = "tester123@example.com";
+    await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
     console.log(await page.title());
     await expect(page).toHaveTitle("Let's Shop");
     await userName.fill(email);
-    await page.locator("[type='password']").fill("Shohei@chiyojima1");
+    await page.locator("[type='password']").fill("Testtest1@");
     await signInBtn.click();
     // await page.waitForLoadState('networkidle');
     // console.log(await cardTitles.first().textContent());
@@ -57,10 +57,8 @@ test('Client App Login', async ({browser})=> {
     // console.log(allCardTitles);
     //Zara coat
     const count = await products.count();
-    for(let i = 0; i < count; ++i)
-    {
-        if(await products.nth(i).locator("b").textContent() === productName)
-        {
+    for (let i = 0; i < count; ++i) {
+        if (await products.nth(i).locator("b").textContent() === productName) {
             // add to cart
             await products.nth(i).locator("text= Add To Cart").click();
             break;
@@ -68,8 +66,9 @@ test('Client App Login', async ({browser})=> {
     }
     await page.locator("[routerlink*='cart']").click();
 
-    //自分でやってみよう、cart全体に対してforでマッチを確認、アサーション。
-    await page.locator("div li").first().waitFor();
+    // await page.locator("div li").first().waitFor();
+    const cartItem = page.locator('h3', { hasText: productName });
+    await expect(cartItem).toBeVisible();
 
     const bool = await page.locator("h3:has-text('ZARA COAT 3')").isVisible();
     expect(bool).toBeTruthy();
@@ -88,15 +87,13 @@ test('Client App Login', async ({browser})=> {
     const couponApplied = await appliedLocator.textContent();
     console.log(couponApplied);
     expect(appliedLocator).toHaveText("* Coupon Applied");
-    await page.locator("[placeholder*='Country']").pressSequentially("Ja", {delay: 150});
+    await page.locator("[placeholder*='Country']").pressSequentially("Ja", { delay: 150 });
     const dropdown = page.locator(".ta-results");
     await dropdown.first().waitFor();
     const optionsCount = await dropdown.locator("button").count();
-    for(let i = 0; i < optionsCount; ++i)
-    {
+    for (let i = 0; i < optionsCount; ++i) {
         const text = await dropdown.locator("button").nth(i).textContent();
-        if(text === " Japan")
-        {
+        if (text === " Japan") {
             await dropdown.locator("button").nth(i).click();
             break;
         }
@@ -112,7 +109,7 @@ test('Client App Login', async ({browser})=> {
     await expect(thankYouForTheOrderLocator).toHaveText(thankYouForTheOrderExpectedLetter);
 
     const orderNumberPre = await page.locator("label[class='ng-star-inserted']").textContent();
-    if(!orderNumberPre){
+    if (!orderNumberPre) {
         throw new Error("Order Number Text not found");
     }
 
@@ -127,12 +124,10 @@ test('Client App Login', async ({browser})=> {
     await oderTable.first().waitFor();
     const oderCount = await oderTable.count();
     console.log(oderCount);
-    for(let i = 0; i < oderCount; i++)
-    {
+    for (let i = 0; i < oderCount; i++) {
         const y = await oderTable.locator("th").nth(i).textContent();
-        if(y === orderNumber)
-        {
-            expect(y,orderNumber).toBeTruthy();
+        if (y === orderNumber) {
+            expect(y, orderNumber).toBeTruthy();
             await oderTable.locator("td button[class*='btn btn-primary']").nth(i).first().click();
             break;
         }
@@ -147,12 +142,12 @@ test('Client App Login', async ({browser})=> {
 
 });
 
-test('UI Control Test', async ({page})=> {
+test('UI Control Test', async ({ page }) => {
     // const userName = page.locator("#userEmail");
     // const signInBtn = page.locator("#login");
     const dropdown = page.locator("select.form-control");
     const blinkingText = page.locator("[href*='documents-request']");
-    await page.goto("https://rahulshettyacademy.com/loginpagePractise/"); 
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     await dropdown.selectOption("Consultant");
     await page.locator(".radiotextsty").last().click();
     await page.locator("#okayBtn").click();
@@ -162,34 +157,33 @@ test('UI Control Test', async ({page})=> {
     await expect(page.locator("#terms")).toBeChecked();
     await page.locator("#terms").uncheck();
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
-    await expect(blinkingText).toHaveAttribute('class','blinkingText');
+    await expect(blinkingText).toHaveAttribute('class', 'blinkingText');
 
 });
 
-test('Child tab handling', async ({browser}) => 
-    {
-        //For original page
-        const context = await browser.newContext();
-        const page = await context.newPage();
-        await page.goto("https://rahulshettyacademy.com/loginpagePractise/"); 
-        const blinkingText = page.locator("[href*='documents-request']");
-        const userName = page.locator("#username");
-        const [newPage] = await Promise.all([
-            context.waitForEvent('page'),
-            blinkingText.click(),
-        ])
-        const text = await newPage.locator(".red").textContent();
-        if(!text){
-            throw new Error("Text not found");
-        }
+test('Child tab handling', async ({ browser }) => {
+    //For original page
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    const blinkingText = page.locator("[href*='documents-request']");
+    const userName = page.locator("#username");
+    const [newPage] = await Promise.all([
+        context.waitForEvent('page'),
+        blinkingText.click(),
+    ])
+    const text = await newPage.locator(".red").textContent();
+    if (!text) {
+        throw new Error("Text not found");
+    }
 
-        const arrayText = text.split("@")
-        // console.log(arrayText);
-        // const arrayText2 = arrayText[1].split(" ")
-        // console.log(arrayText2);
-        const domain = arrayText[1].split(" ")[0]
-        // console.log(domain);
-        await userName.fill(domain);
-        console.log(await userName.inputValue());
+    const arrayText = text.split("@")
+    // console.log(arrayText);
+    // const arrayText2 = arrayText[1].split(" ")
+    // console.log(arrayText2);
+    const domain = arrayText[1].split(" ")[0]
+    // console.log(domain);
+    await userName.fill(domain);
+    console.log(await userName.inputValue());
 
-    })
+})

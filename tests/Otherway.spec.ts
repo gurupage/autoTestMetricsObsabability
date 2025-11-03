@@ -47,7 +47,9 @@ test('Client App Login', async ({browser})=> {
     // await page.locator("[routerlink*='cart']").click();
     await page.getByRole("listitem").getByRole('button', {name: 'Cart'}).click();
     
-    await page.locator("div li").first().waitFor();
+    // await page.locator("div li").first().waitFor();
+    const cartItem = page.locator('h3', { hasText: productName });
+    await expect(cartItem).toBeVisible();
 
     // const bool = await page.locator("h3:has-text('ZARA COAT 3')").isVisible();
     const bool = await page.getByRole('listitem').getByText(productName).isVisible();
