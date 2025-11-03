@@ -9,13 +9,13 @@ test('@waitfor Flaky Experiment with Waitfor()', async ({browser})=> {
     const cardTitles = page.locator(".card-body b");
     const products = page.locator(".card-body");
     const productName = "ZARA COAT 3";
-    const email = "shohei@example.com";
+    const email = "tester123@example.com";
     await page.goto("https://rahulshettyacademy.com/client/#/auth/login", {waitUntil: "domcontentloaded"}); 
     // page.setDefaultTimeout(1500);
     console.log(await page.title());
     await expect(page).toHaveTitle("Let's Shop");
     await userName.fill(email);
-    await page.locator("[type='password']").fill("Shohei@chiyojima1");
+    await page.locator("[type='password']").fill("Testtest1@");
     await signInBtn.click();
     // await page.waitForLoadState('networkidle');
     // console.log(await cardTitles.first().textContent());
