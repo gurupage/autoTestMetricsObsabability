@@ -12,7 +12,7 @@ test('Client App Login', async ({browser})=> {
     const signInBtn = page.getByRole('button', {name: 'Login'});
     const cardTitles = page.locator(".card-body b");
     const products = page.locator(".card-body");
-    const productName = "ZARA COAT 3";
+    const productName = "ADIDAS ORIGINAL";
     const email = "shohei@example.com";
     const password = "Shohei@chiyojima1";
     await page.goto("https://rahulshettyacademy.com/client/#/auth/login"); 
