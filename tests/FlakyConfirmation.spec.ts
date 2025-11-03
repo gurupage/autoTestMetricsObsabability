@@ -10,7 +10,7 @@ test('@waitfor Flaky Experiment with Waitfor()', async ({browser})=> {
     const products = page.locator(".card-body");
     const productName = "ZARA COAT 3";
     const email = "shohei@example.com";
-    await page.goto("https://rahulshettyacademy.com/client/#/auth/login"); 
+    await page.goto("https://rahulshettyacademy.com/client/#/auth/login", {waitUntil: "domcontentloaded"}); 
     // page.setDefaultTimeout(1500);
     console.log(await page.title());
     await expect(page).toHaveTitle("Let's Shop");
@@ -21,7 +21,7 @@ test('@waitfor Flaky Experiment with Waitfor()', async ({browser})=> {
     // console.log(await cardTitles.first().textContent());
     // console.log(await cardTitles.nth(1).textContent());
     await cardTitles.first().waitFor();
-    const allCardTitles = await cardTitles.allTextContents();
+    // const allCardTitles = await cardTitles.allTextContents();
     // console.log(allCardTitles);
     //Zara coat
     const count = await products.count();
@@ -53,9 +53,9 @@ test('@waitfor Flaky Experiment with Waitfor()', async ({browser})=> {
     await textBox.nth(3).fill("rahulshettyacademy");
     await page.locator("button[type*='submit']").click();
     const appliedLocator = page.locator(".mt-1.ng-star-inserted");
-    const couponApplied = await appliedLocator.textContent();
-    console.log(couponApplied);
-    expect(appliedLocator).toHaveText("* Coupon Applied");
+    // const couponApplied = await appliedLocator.textContent();
+    // console.log(couponApplied);
+    await expect(appliedLocator).toHaveText("* Coupon Applied");
     await page.locator("[placeholder*='Country']").pressSequentially("Ja", {delay: 150});
     const dropdown = page.locator(".ta-results");
     await dropdown.first().waitFor();
@@ -125,7 +125,7 @@ test('@timeout Flaky Experiment with timeout()', async ({browser})=> {
     const products = page.locator(".card-body");
     const productName = "ZARA COAT 3";
     const email = "shohei@example.com";
-    await page.goto("https://rahulshettyacademy.com/client/#/auth/login"); 
+    await page.goto("https://rahulshettyacademy.com/client/#/auth/login", {waitUntil: "domcontentloaded"}); 
     console.log(await page.title());
     await expect(page).toHaveTitle("Let's Shop");
     await userName.fill(email);
@@ -135,7 +135,7 @@ test('@timeout Flaky Experiment with timeout()', async ({browser})=> {
     // console.log(await cardTitles.first().textContent());
     // console.log(await cardTitles.nth(1).textContent());
     // await cardTitles.first().waitFor();
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(2500);
     const allCardTitles = await cardTitles.allTextContents();
     // console.log(allCardTitles);
     //Zara coat
@@ -153,7 +153,7 @@ test('@timeout Flaky Experiment with timeout()', async ({browser})=> {
 
     //自分でやってみよう、cart全体に対してforでマッチを確認、アサーション。
     // await page.locator("div li").first().waitFor();
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(2500);
 
     const bool = await page.locator("h3:has-text('ZARA COAT 3')").isVisible();
     expect(bool).toBeTruthy();
@@ -169,13 +169,13 @@ test('@timeout Flaky Experiment with timeout()', async ({browser})=> {
     await textBox.nth(3).fill("rahulshettyacademy");
     await page.locator("button[type*='submit']").click();
     const appliedLocator = page.locator(".mt-1.ng-star-inserted");
-    const couponApplied = await appliedLocator.textContent();
-    console.log(couponApplied);
-    expect(appliedLocator).toHaveText("* Coupon Applied");
+    // const couponApplied = await appliedLocator.textContent();
+    // console.log(couponApplied);
+    await expect(appliedLocator).toHaveText("* Coupon Applied");
     await page.locator("[placeholder*='Country']").pressSequentially("Ja", {delay: 150});
     const dropdown = page.locator(".ta-results");
     // await dropdown.first().waitFor();
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(2500);
     const optionsCount = await dropdown.locator("button").count();
     for(let i = 0; i < optionsCount; ++i)
     {
@@ -194,7 +194,7 @@ test('@timeout Flaky Experiment with timeout()', async ({browser})=> {
     const thankYouForTheOrderExpectedLetter = " Thankyou for the order. ";
     const thankYouForTheOrderLocator = page.locator(".hero-primary");
     // await thankYouForTheOrderLocator.waitFor();
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(2500);
     await expect(thankYouForTheOrderLocator).toHaveText(thankYouForTheOrderExpectedLetter);
 
     const orderNumberPre = await page.locator("label[class='ng-star-inserted']").textContent();
@@ -211,7 +211,7 @@ test('@timeout Flaky Experiment with timeout()', async ({browser})=> {
     await page.locator("i[class*='fa-handshake-o']").click();
     const oderTable = page.locator("tbody tr");
     // await oderTable.first().waitFor();
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(2500);
     const oderCount = await oderTable.count();
     console.log(oderCount);
     for(let i = 0; i < oderCount; i++)
@@ -228,7 +228,7 @@ test('@timeout Flaky Experiment with timeout()', async ({browser})=> {
     const emailTitle = " order summary ";
     // console.log(emailTitle);
     // emailTitleLocator.waitFor();
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(2500);
     await expect(emailTitleLocator).toHaveText(emailTitle);
 
     // await page.pause();
