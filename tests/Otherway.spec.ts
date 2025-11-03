@@ -13,8 +13,8 @@ test('Client App Login', async ({browser})=> {
     const cardTitles = page.locator(".card-body b");
     const products = page.locator(".card-body");
     const productName = "ADIDAS ORIGINAL";
-    const email = "shohei@example.com";
-    const password = "Shohei@chiyojima1";
+    const email = "tester1234@example.com";
+    const password = "Testtest12@";
     await page.goto("https://rahulshettyacademy.com/client/#/auth/login"); 
     console.log(await page.title());
     await expect(page).toHaveTitle("Let's Shop");
