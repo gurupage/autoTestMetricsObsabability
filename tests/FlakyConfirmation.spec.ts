@@ -36,7 +36,6 @@ test('@waitfor Flaky Experiment with Waitfor()', async ({browser})=> {
     }
     await page.locator("[routerlink*='cart']").click();
 
-    //自分でやってみよう、cart全体に対してforでマッチを確認、アサーション。
     await page.locator("div li").first().waitFor();
 
     const bool = await page.locator("h3:has-text('ZARA COAT 3')").isVisible();
@@ -151,7 +150,6 @@ test('@timeout Flaky Experiment with timeout()', async ({browser})=> {
     }
     await page.locator("[routerlink*='cart']").click();
 
-    //自分でやってみよう、cart全体に対してforでマッチを確認、アサーション。
     // await page.locator("div li").first().waitFor();
     await page.waitForTimeout(2500);
 
