@@ -150,11 +150,16 @@ test('@timeout Flaky Experiment with timeout()', async ({browser})=> {
     }
     await page.locator("[routerlink*='cart']").click();
 
-    // await page.locator("div li").first().waitFor();
-    await page.waitForTimeout(2500);
+    await page.waitForURL('**/dashboard/cart');
 
-    const bool = await page.locator("h3:has-text('ZARA COAT 3')").isVisible();
-    expect(bool).toBeTruthy();
+    // await page.locator("div li").first().waitFor();
+    // await page.waitForTimeout(2500);
+
+    const cartItem = page.locator('h3', { hasText: productName });
+    await expect(cartItem).toBeVisible();
+
+    // const bool = await page.locator("h3:has-text('ZARA COAT 3')").isVisible();
+    // expect(bool).toBeTruthy();
 
     // await page.pause();
     const selectBox = page.locator(".input.ddl");
